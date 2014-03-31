@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">狼人杀</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="werewolves">你是一个狼人，每天晚上可以选择杀一名玩家。胜利条件：杀死所有村民</string>
+	<string name="villager">你是普(da)通(zong)村(lian)民（不明真相的围观群众）</string>
+	<string name="witch">你是一名女巫（恁家是男巫），每天晚上法官司将告诉你被狼人杀死的人，你有一瓶灵药与毒药，分别可以救一人或杀一人（也可以不救不杀）。注意：每种药每局只能使用一次</string>
+	<string name="prophet">你是一名预言家，每天晚上法官将告诉你一名玩家是否为狼人（终于不再是‘不明真相的围观群众’啦）</string>
+	<string name="hunter">你是一猎人，当你被狼人杀死或被票死时，可以亮出身份，并选择杀死一名玩家（恁家狠厉害滴，千万不要惹我,么么哒！）</string>
+	<string name="idiot">你是一名白痴，当你被村民票死时，可以亮出身份选择不死。此后你无法再投票，但可以在讨论时插嘴（真会有人这样苟且偷生吗）</string>
+	<string name="unknown">点击图片查看身份</string>
+	<string name="cupid">你是丘比特，第一个晚上你可以指定两名玩家为情侣（你可以是情侣之一）。两名情侣中的一名死去时，另一名也将死去。如果一名情侣为狼人，一名为任意村民，则这对情侣的胜利目标为杀死其它所有人</string>
+	<string name="overNum">由于至少包含一名狼人及先知，总人数超过5</string>
+</resources>
