@@ -19,6 +19,15 @@ import android.widget.TextView;
 
 public class Identity extends Activity {
 
+	/*
+	 * preNum是每一个玩家的编号，默认为1
+	 * num指玩家的总人数
+	 * witch,hunter,idiot,cupid分别指玩家的编号（从1到num)
+	 * hasCupid,hasWithc,hasHunter,hasIdiot 如何玩家钩选了相应的职业，则为true
+	 * ArrayList werewolves，狼人玩家的编号
+	 * returnDialog按返回键时的确认对话框
+	 * ArrayList<String> distributionResult最终的分配结果
+	 */
 	private TextView desc;
 	private TextView preNumDesc;
 	private int num;
@@ -26,9 +35,7 @@ public class Identity extends Activity {
 	private int prophet;
 	private ArrayList werewolves = new ArrayList();
 	private ImageButton imageButton;
-	/*
-	 * preNum是每一个玩家的编号，默认为1
-	 */
+	
 	private int preNum = 1;
 	private int witch;
 	private int hunter;
@@ -39,11 +46,13 @@ public class Identity extends Activity {
 	private boolean hasHunter;
 	private boolean hasIdiot;
 	private Dialog returnDialog;
+	private ArrayList<String>distributionResult;
 	
 
 	private void distribution() {
 		
 		Random random = new Random();
+		distributionResult=new ArrayList<String>();
 		int maxWerewolves;
 		if (num < 8)
 			maxWerewolves = 1;
@@ -54,37 +63,52 @@ public class Identity extends Activity {
 		ArrayList temp = new ArrayList();
 		for (int i = 1; i <= num; i++)
 			temp.add(i);
+		for( int i=0;i<num+1;i++)
+			distributionResult.add("empty");
 		int i = random.nextInt(temp.size());
 		werewolves.add(temp.get(i));
+		distributionResult.set((Integer) temp.get(i),"werewolves");
 		temp.remove(i);
 		while (werewolves.size() < maxWerewolves) {
 			i = random.nextInt(temp.size());
 			werewolves.add(temp.get(i));
+			distributionResult.set((Integer) temp.get(i)-1,"werewolves");
 			temp.remove(i);
 		}
 		i = random.nextInt(temp.size());
 		prophet = (Integer) temp.get(i);
+		distributionResult.set((Integer) temp.get(i),"prophet");
 		temp.remove(i);
 		if (hasWitch) {
 			i = random.nextInt(temp.size());
 			witch = (Integer) temp.get(i);
+			distributionResult.set((Integer) temp.get(i),"witch");
 			temp.remove(i);
 		}
 		if (hasHunter) {
 			i = random.nextInt(temp.size());
 			hunter = (Integer) temp.get(i);
+			distributionResult.set((Integer) temp.get(i),"hunter");
 			temp.remove(i);
 		}
 		if (hasIdiot) {
 			i = random.nextInt(temp.size());
 			idiot = (Integer) temp.get(i);
+			distributionResult.set((Integer) temp.get(i),"idiot");
 			temp.remove(i);
 		}
 		if (hasCupid) {
 			i = random.nextInt(temp.size());
 			cupid = (Integer) temp.get(i);
+			distributionResult.set((Integer) temp.get(i),"cupid");
 			temp.remove(i);
 		}
+		for(int j=1;j<distributionResult.size();j++){
+			if(distributionResult.get(j).equals("empty"))
+				distributionResult.set(j, "villager");
+				
+		}
+		
 
 	}
 
@@ -141,7 +165,7 @@ public class Identity extends Activity {
 		imageButton = (ImageButton) findViewById(R.id.card);
 		
 		num = Integer.parseInt(getIntent().getStringExtra("finalNum"));
-
+		
 		// 判定是否存在某种身份
 		getHasIde();
 
@@ -224,10 +248,16 @@ public class Identity extends Activity {
 						
 						 preNumDesc.setText(preNum + "号的身份");
 						
-					} else {
-						preNumDesc.setText(num + "号的身份");
-						desc.setText("身份查看已经结束");
+					} else{
+						preNumDesc.setText( "");
+						returnCard();
+						desc.setText("身份查看已经结束，点击图标进入");
 					}
+				}else{
+					returnCard();
+					Intent intent=new Intent(Identity.this,Judge.class);
+					intent.putStringArrayListExtra("distributionResult", distributionResult);
+					startActivity(intent);
 				}
 				
 			}
