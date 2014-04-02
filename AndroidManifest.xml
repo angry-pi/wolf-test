@@ -33,6 +33,7 @@
             android:name="com.sv.wolf.Identity">
         </activity>
         <activity android:name="com.sv.wolf.Judge"></activity>
+        <activity android:name="com.sv.wolf.About"></activity>
     </application>
 
 </manifest>

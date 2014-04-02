@@ -17,7 +17,7 @@ public class Settings extends Activity {
 
 	private Spinner selectPeoNum;
 	private static final String[] numSelected = { "5", "6", "7", "8", "9",
-			"10", "11", "12", "13", "14", "15" };
+			"10", "11", "12", "13", "14", "15" ,"16"};
 	private ArrayAdapter adapter;
 	private ImageButton go;
 	private Intent intent;

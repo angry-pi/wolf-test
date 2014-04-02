@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 public class MainActivity extends Activity {
 
 	private ImageButton bStart;
-	
+	private ImageButton bAbout;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -20,7 +20,9 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.activity_main);
 		
+		
 		bStart=(ImageButton) findViewById(R.id.imageButton1);
+		bAbout=(ImageButton) findViewById(R.id.about);
 		bStart.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -30,7 +32,15 @@ public class MainActivity extends Activity {
 				
 			}
 		});
+		bAbout.setOnClickListener(new OnClickListener() {
 			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent=new Intent(MainActivity.this,About.class);
+				startActivity(intent);
+				
+			}
+		});
 		
 	}
 /*

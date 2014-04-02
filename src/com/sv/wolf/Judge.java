@@ -20,14 +20,18 @@ public class Judge extends Activity {
 	private int num;
 	private ImageButton zoom;
 	private ImageButton iButton;
-	private ArrayList hasDead=new ArrayList();
+	private boolean[] isAlive;
 	private int tempDead;
-	private int currentAlive;
+	//private int currentAlive;
+	//private int currentWolfAlive;
+	//private int maxWerewolves;
+	
 
 	private void changeCard() {
+		
 		for (int i = 1; i < distributioResult.size(); i++) {
-			
-			 if (distributioResult.get(i).equals("werewolves"))
+			if(isAlive[i-1]){
+			 if ((distributioResult.get(i).equals("werewolves")))
 				table.get(i - 1).setImageResource(R.drawable.werewolves);
 			else if (distributioResult.get(i).equals("cupid"))
 				table.get(i - 1).setImageResource(R.drawable.cupid);
@@ -43,13 +47,14 @@ public class Judge extends Activity {
 				table.get(i - 1).setImageResource(R.drawable.villager);
 
 		}
+		}
 
 	}
 
 	private void returnCard() {
 		for (int i = 0; i < table.size(); i++)
 		{
-			
+			if(isAlive[i])
 			table.get(i).setImageResource(R.drawable.unknown);
 		}
 	}
@@ -62,7 +67,12 @@ public class Judge extends Activity {
 		distributioResult = getIntent().getStringArrayListExtra("distributionResult");
 		num = distributioResult.size()-1;
 		zoom = (ImageButton) findViewById(R.id.zoom);
+		//maxWerewolves=getIntent().getIntExtra("maxWerewolves",0);
 		getImageButton();
+		isAlive=new boolean[num];
+		for(int i=0;i<num;i++){
+			isAlive[i]=true;
+		}
 		zoom.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -84,22 +94,35 @@ public class Judge extends Activity {
 	}
 
 	private void getImageButton() {
-		for (int i = 1; i <= num; i++) {
+		for (int tempI=1; tempI <= num; tempI++) {
 			Field f;
 			try {
-				f = Class.forName("com.sv.wolf.R$id").getField("no" + i);
+				f = Class.forName("com.sv.wolf.R$id").getField("no" + tempI);
 				iButton = (ImageButton) findViewById(f.getInt(f));
 				iButton.setVisibility(View.VISIBLE);
 			
 				
 				iButton.setOnLongClickListener(new OnLongClickListener() {
 					
+					@SuppressWarnings("unchecked")
 					@Override
 					public boolean onLongClick(View v) {
-						((ImageView) v).setImageResource(R.drawable.dead);
-						v.setVisibility(View.INVISIBLE);
 						
-							
+						//v.setVisibility(View.INVISIBLE);
+						int index=table.indexOf(v);
+ 						if(isAlive[index]){
+ 							((ImageView) v).setImageResource(R.drawable.dead);
+ 							isAlive[index]=false;
+ 						/*
+ 							if(distributioResult.get(index+1)=="werewolves"){
+ 							
+ 							currentWolfAlive--;
+ 							}
+ 						currentAlive--;
+						if(currentAlive-currentWolfAlive<1)
+						*/
+ 						}
+ 						
 						
 						return false;
 					}

@@ -47,13 +47,14 @@ public class Identity extends Activity {
 	private boolean hasIdiot;
 	private Dialog returnDialog;
 	private ArrayList<String>distributionResult;
+	private int maxWerewolves;
 	
 
 	private void distribution() {
 		
 		Random random = new Random();
 		distributionResult=new ArrayList<String>();
-		int maxWerewolves;
+		
 		if (num < 8)
 			maxWerewolves = 1;
 		else if (num < 13)
@@ -251,12 +252,13 @@ public class Identity extends Activity {
 					} else{
 						preNumDesc.setText( "");
 						returnCard();
-						desc.setText("身份查看已经结束，点击图标进入");
+						desc.setText(getResources().getString(R.string.identityEnd));
 					}
 				}else{
 					returnCard();
 					Intent intent=new Intent(Identity.this,Judge.class);
 					intent.putStringArrayListExtra("distributionResult", distributionResult);
+					intent.putExtra("maxWerewolves", maxWerewolves);
 					startActivity(intent);
 				}
 				
