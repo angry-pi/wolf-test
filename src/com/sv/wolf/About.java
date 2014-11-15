@@ -2,17 +2,22 @@ package com.sv.wolf;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ImageButton;
+import android.text.method.ScrollingMovementMethod;
+import android.widget.TextView;
 
 public class About extends Activity{
 	
-	private ImageButton about;
+	
+	private TextView tAbout;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.about);
-		about=(ImageButton) findViewById(R.id.about);
+		tAbout=(TextView) findViewById(R.id.textAbout);
+	
+		tAbout.setMovementMethod(ScrollingMovementMethod.getInstance());
+		
 		
 }
 }

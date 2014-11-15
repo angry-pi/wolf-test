@@ -10,13 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class Settings extends Activity {
 
 	private Spinner selectPeoNum;
-	private static final String[] numSelected = { "5", "6", "7", "8", "9",
+	private static final String[] numSelected = {  "6", "7", "8", "9",
 			"10", "11", "12", "13", "14", "15" ,"16"};
 	private ArrayAdapter adapter;
 	private ImageButton go;
@@ -26,7 +27,7 @@ public class Settings extends Activity {
 	private CheckBox hunter;
 	private CheckBox cupid;
 	private CheckBox idiot;
-
+	private NumberPicker numPick;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -37,7 +38,8 @@ public class Settings extends Activity {
 		hunter = (CheckBox) findViewById(R.id.hasHunter);
 		cupid = (CheckBox) findViewById(R.id.hasCupid);
 		idiot = (CheckBox) findViewById(R.id.hasIdiot);
-
+		
+		
 		selectPeoNum
 				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 

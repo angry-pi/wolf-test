@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class Judge extends Activity {
@@ -21,7 +23,11 @@ public class Judge extends Activity {
 	private ImageButton zoom;
 	private ImageButton iButton;
 	private boolean[] isAlive;
-	private int tempDead;
+	private int currentLive;
+	private TextView gameResult;
+	private int currentWerewolves;
+	private int maxWerewolves;
+	
 	//private int currentAlive;
 	//private int currentWolfAlive;
 	//private int maxWerewolves;
@@ -67,9 +73,13 @@ public class Judge extends Activity {
 		distributioResult = getIntent().getStringArrayListExtra("distributionResult");
 		num = distributioResult.size()-1;
 		zoom = (ImageButton) findViewById(R.id.zoom);
-		//maxWerewolves=getIntent().getIntExtra("maxWerewolves",0);
+		maxWerewolves=getIntent().getIntExtra("maxWerewolves",0);
 		getImageButton();
+		gameResult=(TextView) findViewById(R.id.gameResult);
+		
 		isAlive=new boolean[num];
+		currentLive=num;
+		currentWerewolves=maxWerewolves;
 		for(int i=0;i<num;i++){
 			isAlive[i]=true;
 		}
@@ -104,6 +114,8 @@ public class Judge extends Activity {
 				
 				iButton.setOnLongClickListener(new OnLongClickListener() {
 					
+					
+
 					@SuppressWarnings("unchecked")
 					@Override
 					public boolean onLongClick(View v) {
@@ -113,17 +125,20 @@ public class Judge extends Activity {
  						if(isAlive[index]){
  							((ImageView) v).setImageResource(R.drawable.dead);
  							isAlive[index]=false;
- 						/*
- 							if(distributioResult.get(index+1)=="werewolves"){
- 							
- 							currentWolfAlive--;
- 							}
- 						currentAlive--;
-						if(currentAlive-currentWolfAlive<1)
-						*/
- 						}
+ 							if(distributioResult.get(index+1).equals("werewolves"))
+ 								currentWerewolves--;
+ 							currentLive--;
  						
-						
+ 						}
+ 						if(currentWerewolves==0)
+ 							gameResult.setText(getResources().getString(R.string.villagerWin));
+ 						if(currentLive-currentWerewolves<=currentWerewolves)
+ 							gameResult.setText(getResources().getString(R.string.wolfWin));
+ 						if(currentLive==0)
+ 						{
+ 							Intent intent=new Intent(Judge.this,Punish.class);
+ 							startActivity(intent);
+ 						}
 						return false;
 					}
 				});

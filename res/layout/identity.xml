@@ -30,8 +30,9 @@
       
         android:layout_below="@id/card"
         android:layout_centerHorizontal="true"
-        android:paddingTop="50dip"
+        android:paddingTop="10dip"
         android:text="点击图片查看身份"
+        android:textColor="#FFFFFF"
         android:textAppearance="?android:attr/textAppearanceLarge" 
         android:paddingLeft="50dp"
         android:paddingRight="50dp"/>

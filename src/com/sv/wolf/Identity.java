@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +27,7 @@ public class Identity extends Activity {
 	 * hasCupid,hasWithc,hasHunter,hasIdiot 如何玩家钩选了相应的职业，则为true
 	 * ArrayList werewolves，狼人玩家的编号
 	 * returnDialog按返回键时的确认对话框
-	 * ArrayList<String> distributionResult最终的分配结果
+	 * ArrayList<String> distributionResult最终的分配结果(从1到最大人数）
 	 */
 	private TextView desc;
 	private TextView preNumDesc;
@@ -73,7 +74,7 @@ public class Identity extends Activity {
 		while (werewolves.size() < maxWerewolves) {
 			i = random.nextInt(temp.size());
 			werewolves.add(temp.get(i));
-			distributionResult.set((Integer) temp.get(i)-1,"werewolves");
+			distributionResult.set((Integer) temp.get(i),"werewolves");
 			temp.remove(i);
 		}
 		i = random.nextInt(temp.size());
@@ -162,6 +163,7 @@ public class Identity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.identity);
 		desc = (TextView) findViewById(R.id.desc);
+		desc.setMovementMethod(ScrollingMovementMethod.getInstance());
 		preNumDesc = (TextView) findViewById(R.id.preNumDesc);
 		imageButton = (ImageButton) findViewById(R.id.card);
 		
@@ -183,8 +185,8 @@ public class Identity extends Activity {
 				if (preNum <= num) {
 					if (isClosed) {
 						Rotate3dAnimation ra=new Rotate3dAnimation(0,90,200,200,0f,true);
-						ra.setDuration(300);
-						ra.setFillAfter(false);
+						ra.setDuration(200);
+						ra.setFillAfter(true);
 					
 					  	ra.setAnimationListener(new AnimationListener() {
 							
@@ -205,8 +207,8 @@ public class Identity extends Activity {
 								
 								changeCard(preNum);
 								Rotate3dAnimation ra2=new Rotate3dAnimation(-90,0,200,200,0f,true);
-								ra2.setDuration(400);
-								ra2.setFillAfter(false);
+								ra2.setDuration(300);
+								ra2.setFillAfter(true);
 								ra2.setAnimationListener(new AnimationListener() {
 									
 									@Override
@@ -228,6 +230,7 @@ public class Identity extends Activity {
 									}
 								});
 								imageButton.startAnimation(ra2);
+								descIden(preNum);
 								
 							}
 						});
@@ -236,7 +239,7 @@ public class Identity extends Activity {
 						
 						
 						isClosed = false;
-						descIden(preNum);
+						
 
 					} else {
 						returnCard();
